@@ -149,7 +149,8 @@
   /* Removes all elements from the set
    */
   SortedSet.prototype.clear = function() {
-    // TODO: Implement clear method
+    setArray.splice(0, setArray.length);
+    return setArray;
   };
 
   /* BONUS MARKS AWARDED IF IMPLEMENTED
