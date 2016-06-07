@@ -96,7 +96,7 @@
    * single element at startIndex is returned.
    */
   SortedSet.prototype.get = function(startIndex, endIndex) {
-    // TODO: Implement get method
+    return endIndex ? setArray.slice(startIndex, endIndex + 1) : setArray[startIndex];
   };
 
   /* Gets all items between specified value range. If exclusive is set, values
