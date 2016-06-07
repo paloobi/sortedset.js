@@ -89,7 +89,7 @@
   /* Returns true if a given element exists in the set
    */
   SortedSet.prototype.contains = function(element) {
-    // TODO: Implement contains method
+    return setArray.indexOf(element) > -1;
   };
 
   /* Gets elements between startIndex and endIndex. If endIndex is omitted, a
