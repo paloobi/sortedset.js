@@ -9,16 +9,30 @@
 }(this, function() {
   "use strict";
 
+  //helper function to remove duplicate values
+  function deDupe(arr) {
+    var items = {};
+    arr.forEach(function(val) {
+      if (!items[val]) {
+        items[val] = true;
+      }
+    });
+    return Object.keys(items);
+  }
+
   // Internal private array which holds actual set elements
   var setArray;
 
   // Constructor for the SortedSet class
   function SortedSet(initial) {
+    // Handle the case when initial array is provided
     if (arguments.length > 0) {
-      // TODO: Handle the case when initial array is provided; if array has
-      // elements of duplicate value, reduce down to one instance and sort the
-      // elements in ascending order.
-      setArray = [];
+      // if array has elements of duplicate value, reduce down to one instance 
+      setArray = deDupe(initial);
+      // sort the elements in ascending order.
+      setArray = setArray.sort(function(a, b) { 
+        return a - b;
+      });
     } else {
       setArray = [];
     }
@@ -58,7 +72,9 @@
 
     var context = arguments[1];
     for (var i = 0; i < len; i++) {
-      if (i in t) callback.call(context, t[i], i, t);
+      if (i in t) {
+        callback.call(context, t[i], i, t);
+      }
     }
   };
 
