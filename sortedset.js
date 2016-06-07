@@ -146,7 +146,8 @@
   /* Removes element from set and returns the element
    */
   SortedSet.prototype.remove = function(element) {
-    // TODO: Implement remove method
+    var item = setArray.splice(setArray.indexOf(element), 1);
+    return item[0];
   };
 
   /* Removes element at index location and returns the element
