@@ -103,7 +103,23 @@
    * at lower bound and upper bound are not included.
    */
   SortedSet.prototype.getBetween = function(lbound, ubound, exclusive) {
-    // TODO: Implement getBetween method
+    var startIndex;
+    for (var i = 0; i < setArray.length; i++) {
+      if (setArray[i] >= lbound) {
+        startIndex = i;
+        if (exclusive && setArray[i] === lbound) startIndex++;
+        break;
+      }
+    }
+    var endIndex;
+    for (var i = setArray.length; i > 0; i--) {
+      if (setArray[i] <= ubound) {
+        endIndex = i;
+        if (exclusive && setArray[i] === ubound) endIndex--;
+        break;
+      }
+    }
+    return setArray.slice(startIndex, endIndex + 1)
   };
 
   /* Adds new element to the set if not already in set
