@@ -17,7 +17,7 @@
         items[val] = true;
       }
     });
-    return Object.keys(items);
+    return Object.keys(items).map(function(val) { return Number(val); });
   }
 
   // Internal private array which holds actual set elements
@@ -109,7 +109,22 @@
   /* Adds new element to the set if not already in set
    */
   SortedSet.prototype.add = function(element) {
-    // TODO: Implement add method
+    if (setArray.indexOf(element) === -1) {
+      var inserted;
+      for (var i = 0; i < setArray.length; i++) {
+        if (setArray[i] > element) {
+          inserted = true;
+          if (i === 0) setArray.unshift(element);
+          else {
+            setArray.splice(i, 0, element);
+            break;
+          }
+          
+        }
+      }
+      if (!inserted) setArray.push(element);
+    }
+    return setArray;
   };
 
   /* Removes element from set and returns the element
