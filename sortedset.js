@@ -100,8 +100,8 @@
   };
 
 
-  // helper function to start index within specified bounds
-  function getStartIndex(lbound, exclusive) {
+  // helper function to start and end indices within specified bounds
+  function getIndices(lbound, ubound, exclusive) {
     for (var i = 0; i < setArray.length; i++) {
       if (setArray[i] >= lbound) {
         var startIndex = i;
@@ -109,10 +109,6 @@
         break;
       }
     }
-    return startIndex;
-  }
-
-  function getEndIndex(ubound, exclusive) {
     for (var i = setArray.length; i > 0; i--) {
       if (setArray[i] <= ubound) {
         var endIndex = i;
@@ -120,16 +116,15 @@
         break;
       }
     }
-    return endIndex;
+    return {start: startIndex, end: endIndex};
   }
 
   /* Gets all items between specified value range. If exclusive is set, values
    * at lower bound and upper bound are not included.
    */
   SortedSet.prototype.getBetween = function(lbound, ubound, exclusive) {
-    var startIndex = getStartIndex(lbound, exclusive);
-    var endIndex = getEndIndex(ubound, exclusive);
-    return setArray.slice(startIndex, endIndex + 1)
+    var indices = getIndices(lbound, ubound, exclusive);
+    return setArray.slice(indices.start, indices.end + 1);
   };
 
   /* Adds new element to the set if not already in set
@@ -172,10 +167,9 @@
    * bound and returns removed elements.
    */
   SortedSet.prototype.removeBetween = function(lbound, ubound, exclusive) {
-    var startIndex = getStartIndex(lbound, exclusive);
-    var endIndex = getEndIndex(ubound, exclusive);
-    var removed = setArray.slice(startIndex, endIndex + 1);
-    setArray = setArray.slice(0, startIndex).concat( setArray.slice(endIndex + 1, setArray.length) )
+    var indices = getIndices(lbound, ubound, exclusive);
+    var removed = setArray.slice(indices.start, indices.end + 1);
+    setArray = setArray.slice(0, indices.start).concat( setArray.slice(indices.end + 1, setArray.length) )
     return removed;
   };
 
