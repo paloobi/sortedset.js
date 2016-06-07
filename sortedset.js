@@ -153,7 +153,9 @@
   /* Removes element at index location and returns the element
    */
   SortedSet.prototype.removeAt = function(index) {
-    // TODO: Implement removeAt method
+    var item = setArray[index];
+    setArray = setArray.slice(0, index).concat( setArray.slice(index + 1, setArray.length) )
+    return item;
   };
 
   /* Removes elements that are larger than lower bound and smaller than upper
